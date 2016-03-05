@@ -1,0 +1,26 @@
+.header {
+	width: 100%;
+	border:1px solid green;
+}
+.plan-box {
+	width: 400px;
+	float: left;
+	border:1px solid blue;
+}
+.plan-list {
+	list-style-type: none;
+}
+.plan-list .plan-item {
+	margin-top: 10px; 
+}
+.plan-list .plan-item .text {
+	font-size: 100%;
+}
+.check-box {
+	width: 300px;
+	float: right;
+	border:1px solid red;
+}
+.clear {
+	clear: both;
+}
