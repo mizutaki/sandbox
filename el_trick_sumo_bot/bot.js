@@ -1,17 +1,25 @@
 var Apiconf = require('./apiconf');
 var twitter = require('twitter');
 var fs = require('fs');
+var mycron = require('cron').CronJob;
 
+var job = new mycron({
+  cronTime: '00 30 22 * * 0-6',
+  onTick: function() {
+    tweet();
+  },
+  start: false,
+  timeSonze: 'Japan/Tokyo'
+});
 
-
-
+job.start();
 
 var tweet = function() {
   var message;
   fs.readFile('./script/kimarite.data', 'utf8', function(err,text) {
     var arr  = text.split("\n");
     var trickName = arr[Math.floor(Math.random() * arr.length)];
-    
+
     var conf = new Apiconf();
     var bot = new twitter({
       consumer_key        : conf.consumer_key,
@@ -21,7 +29,6 @@ var tweet = function() {
     });
 
     var message = totsuzennoshiGenerator(trickName);
-
     bot.post('statuses/update', {status : message },  function(error, tweet, response){
       if(error) throw error;
       console.log(tweet);  // Tweet body.
@@ -39,14 +46,10 @@ var totsuzennoshiGenerator = function(message) {
   }
   ret += "＿\n";
   ret += "＞ " + message + " ＜\n";
-  console.log(ret);
   ret += "￣";
   for (var j = 0; j < length + 1; j++) {
     j == (length) ?  ret += "Y" : ret += "Y^";
   }
   ret += "￣";
-  console.log(ret);
   return ret;
 }
-
-tweet();
