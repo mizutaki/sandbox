@@ -1,4 +1,4 @@
-var Apiconf = require('./apiconf');
+var app = require('./app');
 var twitter = require('twitter');
 var fs = require('fs');
 var mycron = require('cron').CronJob;
@@ -20,12 +20,11 @@ var tweet = function() {
     var arr  = text.split("\n");
     var trickName = arr[Math.floor(Math.random() * arr.length)];
 
-    var conf = new Apiconf();
     var bot = new twitter({
-      consumer_key        : conf.consumer_key,
-      consumer_secret     : conf.consumer_secret,
-      access_token_key    : conf.access_token_key,
-      access_token_secret : conf.access_token_secret
+      consumer_key: app.get('options').key,
+      consumer_secret: app.get('options').secret,
+      access_token_key: app.get('options').token,
+      access_token_secret: app.get('options').token_secret
     });
 
     var message = totsuzennoshiGenerator(trickName);

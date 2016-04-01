@@ -4,13 +4,14 @@
   "description": "tweet the tricks of sumo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node bot"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "cron": "^1.1.0",
+    "express": "^4.13.4",
     "twitter": "^1.2.5"
   }
 }
