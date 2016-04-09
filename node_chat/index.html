@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>チャット、チャットチャット</title>
+  </head>
+  <bpdy>
+    <input type="text" id="msg_input" style="width:300px"/>
+    <button onclick="publishMessage();">送信</button>
+    <div id="msg"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+    var socketio = io.connect('http://localhost:1234');
+    
+    socketio.on('connected', function(name) {});
+    socketio.on('publish', function(data) { addMessage(data.value); });
+    socketio.on('disconnect', function(){});
+    
+    function start(name) {
+      socketio.emit('connected', name);
+    }
+    
+    function publishMessage() {
+      var textInput = document.getElementById('msg_input');
+      var msg = "[" + myName + "]" + textInput.value;
+      socketio.emit('publish', {value : msg});
+      textInput.value = '';
+    }
+    
+    function addMessage(msg) {
+      var doMeg = document.createElement('div');
+      doMeg.innerHTML = new Date().toLocaleTimeString() + ' ' + msg;
+      msgArea.appendChild(doMeg);
+    }
+    
+    var msgArea = document.getElementById('msg');
+    var myName = Math.floor(Math.random() * 100) + "さん";
+    addMessage('あなたは、' + myName + 'として入室しました');
+    start(myName);
+    </script>
+    </body>
+</html>
