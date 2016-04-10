@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>チャット、チャットチャット</title>
+    <title>chat,chatchat</title>
   </head>
   <bpdy>
     <input type="text" id="msg_input" style="width:300px"/>
@@ -15,6 +15,7 @@
     socketio.on('connected', function(name) {});
     socketio.on('publish', function(data) { addMessage(data.value); });
     socketio.on('disconnect', function(){});
+    socketio.on('delete', function(data) { deleteMessage(data.value); });
     
     function start(name) {
       socketio.emit('connected', name);
@@ -26,15 +27,34 @@
       socketio.emit('publish', {value : msg});
       textInput.value = '';
     }
-    
+
     function addMessage(msg) {
-      var doMeg = document.createElement('div');
-      doMeg.innerHTML = new Date().toLocaleTimeString() + ' ' + msg;
-      msgArea.appendChild(doMeg);
+      var messageBlock = document.createElement('div');
+      var message = document.createElement('span');
+      var writeDate = document.createElement('span');
+      messageBlock.className = 'messageBlock'
+      message.innerHTML =  msg;
+      writeDate.className = 'writeDate';
+      writeDate.innerHTML = new Date().toLocaleString();
+      messageBlock.appendChild(writeDate);
+      messageBlock.appendChild(message);
+      msgArea.appendChild(messageBlock);
     }
-    
+
+    function deleteMessage(serverDate) {
+      var messageBlockList = document.getElementsByClassName('messageBlock');
+      var count = messageBlockList.length;
+      for (var i = 0; i < count; i++) {
+        var deleteDate = new Date(serverDate).getTime();
+        var writeDate = new Date(messageBlockList[i].children[0].innerHTML).getTime() + 10000;//書いてから10秒
+        if (deleteDate > writeDate) {//現在時刻が書いてから10秒過ぎていたら削除する
+          messageBlockList[i].parentNode.removeChild(messageBlockList[i]);
+        }
+      }
+    }
+
     var msgArea = document.getElementById('msg');
-    var myName = Math.floor(Math.random() * 100) + "さん";
+    var myName = "名無し" + Math.floor(Math.random() * 100) + "さん";
     addMessage('あなたは、' + myName + 'として入室しました');
     start(myName);
     </script>

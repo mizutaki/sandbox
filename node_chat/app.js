@@ -5,9 +5,9 @@ var server = require('http').createServer(function(req, res) {
   res.end(output);
 }).listen(1234);
 var io = require('socket.io').listen(server);
-
 var userHash = {};
-
+var cronJob = require('cron').CronJob;
+var cronTime = "*/10 * * * * 0-6";
 
 io.sockets.on('connection', function(socket) {
   //接続開始（他ユーザへ通知）
@@ -29,3 +29,18 @@ io.sockets.on('connection', function(socket) {
     }
   });
 });
+
+var job = new cronJob({
+  cronTime: cronTime,
+
+  onTick:function() {
+    var deleteDate = new Date().toLocaleString().replace(/-/g,"\/");//クライアント側のフォーマットに変換する
+    io.sockets.emit('delete', { value: deleteDate });
+  },
+
+  start:false,
+
+  timeZone: "Japan/Tokyo"
+
+})
+job.start();
