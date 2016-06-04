@@ -1,0 +1,11 @@
+{
+  "name": "sample",
+  "version": "0.0.1",
+  "main": "main.js",
+  "dependencies": {
+    "cron": "^1.1.0",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "request": "^2.72.0"
+  }
+}
