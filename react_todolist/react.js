@@ -6,6 +6,13 @@ var TodoApp = React.createClass({
     }
   },
 
+  componentDidMount : function() {
+    var t = [{item: 'あああ', status: 0}, {item:'いいい', status:1}]
+    this.setState({
+      todos: t
+    })
+  },
+
   onAdd: function(newTodo){
     this.setState({
       todos : this.state.todos.concat({item:newTodo, status:0})
@@ -67,7 +74,7 @@ var TodoCreator = React.createClass({
         <button onClick={this._onClear}>Clear</button>
       </div>
     );
-}
+  }
 });
 
 var TodoList = React.createClass({
