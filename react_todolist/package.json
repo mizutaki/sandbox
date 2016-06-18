@@ -16,5 +16,8 @@
   "bugs": {
     "url": ""
   },
-  "homepage": ""
+  "homepage": "",
+  "dependencies": {
+    "puid": "^1.0.5"
+  }
 }

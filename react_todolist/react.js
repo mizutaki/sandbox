@@ -1,3 +1,14 @@
+var Puid = require('puid')
+var puid = new Puid('JS')
+var myStorage = localStorage;
+
+var arr = []
+for (var i = 0; i < myStorage.length; i++) {
+  //console.log(myStorage.key(i))
+  //console.log(JSON.parse(myStorage.getItem(myStorage.key(i))))
+  arr.push(JSON.parse(myStorage.getItem(myStorage.key(i))))
+}
+console.log(arr)
 var TodoApp = React.createClass({
 
   getInitialState: function(){
@@ -7,9 +18,8 @@ var TodoApp = React.createClass({
   },
 
   componentDidMount : function() {
-    var t = [{item: 'あああ', status: 0}, {item:'いいい', status:1}]
     this.setState({
-      todos: t
+      todos: arr
     })
   },
 
@@ -53,6 +63,7 @@ var TodoCreator = React.createClass({
   _onAdd: function(){
     var newTodo = this.refs.inputText.getDOMNode().value;
     this.props.onAdd(newTodo);
+    myStorage.setItem(puid.generate(), JSON.stringify({item : newTodo, status: 0}));
     this.setState({value: ""});
   },
 
@@ -63,6 +74,7 @@ var TodoCreator = React.createClass({
   },
 
   _onClear: function() {
+    myStorage.clear();
     this.props.onClear();
   },
 
