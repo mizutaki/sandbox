@@ -9,8 +9,8 @@
   -khtml-user-drag: element;
   -webkit-user-drag: element;
 }
-.column {
-  height: 150px;
+.todo {
+  /*height: 150px;
   width: 150px;
   float: left;
   border: 2px solid #666666;
@@ -21,43 +21,47 @@
   -moz-border-radius: 10px;
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 3px #000;
-  -ms-box-shadow: inset 0 0 3px #000;
+  -ms-box-shadow: inset 0 0 3px #000;*/
   box-shadow: inset 0 0 3px #000;
-  text-align: center;
+  margin: 5px;
+  /*text-align: center;*/
   cursor: move;
 }
-.column header {
-  color: #fff;
-  text-shadow: #000 0 1px;
-  box-shadow: 5px;
-  padding: 5px;
-  background: -moz-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-  background: -webkit-gradient(linear, left top, right top,
-                               color-stop(0, rgb(0,0,0)),
-                               color-stop(0.50, rgb(79,79,79)),
-                               color-stop(1, rgb(21,21,21)));
-  background: -webkit-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-  background: -ms-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-  border-bottom: 1px solid #ddd;
-  -webkit-border-top-left-radius: 10px;
-  -moz-border-radius-topleft: 10px;
-  -ms-border-radius-topleft: 10px;
-  border-top-left-radius: 10px;
-  -webkit-border-top-right-radius: 10px;
-  -ms-border-top-right-radius: 10px;
-  -moz-border-radius-topright: 10px;
-  border-top-right-radius: 10px;
-}
+
 .column.over {
     border: 3px dashed #000;
   }
 </style>
+<input class="todotext" type="text" />
+<input class="add" type="button" onclick="add();" value="add" />
 <div id="columns">
-  <div class="column" draggable="true"><header>A</header></div>
-  <div class="column" draggable="true"><header>B</header></div>
-  <div class="column" draggable="true"><header>C</header></div>
+  <ul class="todos" style="list-style:none">
+    <li class="todo" draggable="true">aaa</li>
+    <li class="todo" draggable="true">bbb</li>
+    <li class="todo" draggable="true">ccc</li>
+  </ul>
 </div>
+
 <script>
+  //creator
+  function add() {
+    console.log('add');
+    var todos = document.querySelector('.todos');
+    var li = createTodo();
+    todos.appendChild(li);
+  }
+  
+  function createTodo() {
+    var li = document.createElement('li');
+    li.className = 'todo';
+    li.setAttribute('draggable', true);
+    var todoText = document.querySelector('.todotext');
+    li.innerHTML = todoText.value;
+    setDragDropEvent(li);
+    return li;
+  }
+  
+  //drag&drop
   function handleDragStart(e) {
     this.style.opacity = 0.5;
     
@@ -73,6 +77,7 @@
     e.dataTransfer.dropEffect = 'move';
     return false
   }
+  
   function handleDragEnter(e) {
     this.classList.add('over');
   }
@@ -85,7 +90,7 @@
     if (e.stopPropagation) {
       e.stopPropagation();
     }
-    
+  
     if (dragSrcEl != this) {
       dragSrcEl.innerHTML = this.innerHTML;
       this.innerHTML = e.dataTransfer.getData('text/html');
@@ -94,18 +99,22 @@
   }
   
   function handleDragEnd(e) {
-    [].forEach.call(cols, function(col) {
+    [].forEach.call(cols, function (col) {
       col.classList.remove('over');
     });
   }
   
-  var cols = document.querySelectorAll('#columns .column');
+  function setDragDropEvent(element) {
+    element.addEventListener('dragstart', handleDragStart, false);
+    element.addEventListener('dragenter', handleDragEnter, false);
+    element.addEventListener('dragover', handleDragOver, false);
+    element.addEventListener('dragleave', handleDragLeave, false);
+    element.addEventListener('drop', handleDrop, false);
+    element.addEventListener('dragend', handleDragEnd, false);
+  }
+  
+  var cols = document.querySelectorAll('#columns .todo');
   [].forEach.call(cols, function(col) {
-    col.addEventListener('dragstart', handleDragStart, false);
-    col.addEventListener('dragenter', handleDragEnter, false);
-    col.addEventListener('dragover', handleDragOver, false);
-    col.addEventListener('dragleave', handleDragLeave, false);
-    col.addEventListener('drop', handleDrop, false);
-    col.addEventListener('dragend', handleDragEnd, false);
+    setDragDropEvent(col);
   });
 </script>
