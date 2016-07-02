@@ -21,6 +21,7 @@
 </style>
 <input class="todotext" type="text" />
 <input class="add" type="button" onclick="add();" value="add" />
+<input class="clear" type="button" onclick="allClear();" value="clear" />
 <div id="columns">
   <ul class="todos" style="list-style:none"></ul>
 </div>
@@ -54,6 +55,11 @@
     li.innerHTML = text;
     setDragDropEvent(li);
     return li;
+  }
+  
+  function allClear() {
+    myStorage.clear();
+    location.reload();
   }
 
   function increaseCount(text) {
