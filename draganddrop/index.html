@@ -10,21 +10,8 @@
   -webkit-user-drag: element;
 }
 .todo {
-  /*height: 150px;
-  width: 150px;
-  float: left;
-  border: 2px solid #666666;
-  background-color: #ccc;
-  margin-right: 5px;
-  -webkit-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 3px #000;
-  -ms-box-shadow: inset 0 0 3px #000;*/
   box-shadow: inset 0 0 3px #000;
   margin: 5px;
-  /*text-align: center;*/
   cursor: move;
 }
 
@@ -35,36 +22,53 @@
 <input class="todotext" type="text" />
 <input class="add" type="button" onclick="add();" value="add" />
 <div id="columns">
-  <ul class="todos" style="list-style:none">
-    <li class="todo" draggable="true">aaa</li>
-    <li class="todo" draggable="true">bbb</li>
-    <li class="todo" draggable="true">ccc</li>
-  </ul>
+  <ul class="todos" style="list-style:none"></ul>
 </div>
 
 <script>
+  var myStorage = localStorage;
+  //initialize
+  var todo = document.querySelector('.todo');
+  var length = myStorage.length;
+  for (var i = 0; i < length; i++) {
+    if (myStorage.key(i) == 'count') continue;
+    var li = createTodo(myStorage.getItem(myStorage.key(i)));
+    var todos = document.querySelector('.todos');
+    todos.appendChild(li);
+  }
+  
   //creator
   function add() {
     console.log('add');
     var todos = document.querySelector('.todos');
-    var li = createTodo();
+    var todoText = document.querySelector('.todotext');
+    var li = createTodo(todoText.value);
+    increaseCount(todoText.value);
     todos.appendChild(li);
   }
-  
-  function createTodo() {
+
+  function createTodo(text) {
     var li = document.createElement('li');
     li.className = 'todo';
     li.setAttribute('draggable', true);
-    var todoText = document.querySelector('.todotext');
-    li.innerHTML = todoText.value;
+    li.innerHTML = text;
     setDragDropEvent(li);
     return li;
+  }
+
+  function increaseCount(text) {
+    var count = myStorage.getItem('count');
+    if (count) {
+      myStorage.setItem('count', parseInt(count,10) + 1);
+    }else{
+      myStorage.setItem('count', 1);
+    }
+    myStorage.setItem(myStorage.getItem('count'), text);
   }
   
   //drag&drop
   function handleDragStart(e) {
     this.style.opacity = 0.5;
-    
     dragSrcEl = this;
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.innerHTML);
