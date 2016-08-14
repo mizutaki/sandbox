@@ -8,12 +8,13 @@ class EntriesController < ApplicationController
   end
 
   def create
+    params[:entry][:posted_at] = Time.now
     @entry = Entry.new(entry_params)
     #p @entry
     if @entry.save
       redirect_to @entry, notice: "作成しました。"
     else
-      
+
     end
   end
 
@@ -23,6 +24,6 @@ class EntriesController < ApplicationController
 
   private
   def entry_params
-    params.require(:entry).permit(:title)
+    params.require(:entry).permit(:title, :body, :posted_at)
   end
 end
