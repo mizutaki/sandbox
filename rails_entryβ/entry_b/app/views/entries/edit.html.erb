@@ -1,8 +1,8 @@
-<h2>新規作成画面</h2>
+<h2>編集画面</h2>
 <%= form_for @entry do |f| %>
   <%= f.label :name, "タイトル" %>
   <%= f.text_field :title %>
   <%= f.label :name, "本文" %>
   <%= f.text_area :body %>
-  <%= f.submit "create" %>
+  <%= f.submit "edit" %>
 <% end %>

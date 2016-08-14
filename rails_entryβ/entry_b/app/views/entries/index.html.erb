@@ -1,4 +1,15 @@
 <%= link_to "Create", :new_entry %>
+<table border="1">
+  <th>投稿日時</th>
+  <th>タイトル</th>
+  <th>本文</th>
+  <th>-</th>
 <% @entries.each do |entry| %>
-<%= entry.title %>
+  <tr>
+    <td><%= entry.posted_at %></td>
+    <td><%= entry.title %></td>
+    <td><%= entry.body %></td>
+    <td><%= link_to "編集", [:edit, entry] %></td>
+  </tr>
 <% end %>
+</table>
