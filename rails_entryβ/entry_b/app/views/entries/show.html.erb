@@ -1,5 +1,8 @@
 <%= link_to "一覧へ戻る", :entries %>
-<%= @entry.id %>
-<%= @entry.title %>
-<%= @entry.body %>
-<%= @entry.posted_at %>
+<ul>
+<li><%= @entry.id %></li>
+<li><%= @entry.title %></li>
+<li><%= @entry.body %></li>
+<li><%= @entry.posted_at %></li>
+<li><%= entry_image_tag @entry, width:96 %></li>
+</ul>

@@ -1,8 +1,19 @@
 <h2>新規作成画面</h2>
+
+<ul>
 <%= form_for @entry do |f| %>
-  <%= f.label :name, "タイトル" %>
-  <%= f.text_field :title %>
-  <%= f.label :name, "本文" %>
-  <%= f.text_area :body %>
+  <li>
+    <%= f.label :name, "タイトル" %>
+    <%= f.text_field :title, :size => "50" %>
+  </li>
+  <li>
+    <%= f.label :name, "本文"%>
+    <%= f.text_area :body, :size => "50x10", :maxlength => "200" %>
+  </li>
+  <li>
+    <%= f.label :name, "ファイル"%>
+    <%= f.file_field :attachment_file %>
+  </li>
   <%= f.submit "create" %>
 <% end %>
+</ul>
