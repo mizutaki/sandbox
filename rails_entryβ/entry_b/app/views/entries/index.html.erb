@@ -6,12 +6,14 @@
   <th>投稿日時</th>
   <th>タイトル</th>
   <th>本文</th>
+  <th>画像</th>
   <th>-</th>
 <% @entries.each do |entry| %>
   <tr>
     <td><%= entry.posted_at %></td>
     <td><%= entry.title %></td>
     <td><%= entry.body %></td>
+    <td><%= entry_image_tag entry, width:96 %></td>
     <td><%= link_to "編集", [:edit, entry] %></td>
   </tr>
 <% end %>
