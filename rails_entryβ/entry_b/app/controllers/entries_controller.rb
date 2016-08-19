@@ -34,6 +34,8 @@ class EntriesController < ApplicationController
   end
 
   def update
+    params[:entry][:content_type] = params[:entry][:attachment_file].content_type
+    params[:entry][:attachment_file] = params[:entry][:attachment_file].read
     @entry = Entry.find(params[:id])
     @entry.assign_attributes(entry_params)
     if @entry.save
@@ -45,7 +47,8 @@ class EntriesController < ApplicationController
 
   private
   def entry_params
-    params.require(:entry).permit(:title, :body, :posted_at, :attachment_file, :content_type)
+    attr = [:title, :body, :posted_at, :attachment_file, :content_type]
+    params.require(:entry).permit(attr)
   end
 
   def send_image
