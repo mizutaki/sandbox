@@ -45,6 +45,11 @@ class EntriesController < ApplicationController
     end
   end
 
+  def destroy
+    @entry = Entry.find(params[:id])
+    @entry.destroy
+    redirect_to :entries, notice: "削除しました。"
+  end
   private
   def entry_params
     attr = [:title, :body, :posted_at, :attachment_file, :content_type]

@@ -7,7 +7,7 @@
   <th>タイトル</th>
   <th>本文</th>
   <th>画像</th>
-  <th>-</th>
+  <th colspan="2">-</th>
 <% @entries.each do |entry| %>
   <tr>
     <td><%= entry.posted_at %></td>
@@ -15,6 +15,7 @@
     <td><%= entry.body %></td>
     <td><%= entry_image_tag entry, width:96 %></td>
     <td><%= link_to "編集", [:edit, entry] %></td>
+    <td><%= link_to "削除", entry, method: :delete, data:{ confirm: "本当に削除しますか？" } %></td>
   </tr>
 <% end %>
 </table>
