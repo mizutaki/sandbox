@@ -1,3 +1,20 @@
-// Place all the styles related to the entries controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.flex-container {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  flex: 0 0 200;
+  margin: 0 1px;
+  border: 1px solid #fff;
+  padding: 10px;
+  width: 200px;
+  background-color: lightgray;
+}
+
+.entry-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
