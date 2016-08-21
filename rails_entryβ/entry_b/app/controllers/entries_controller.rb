@@ -9,9 +9,6 @@ class EntriesController < ApplicationController
 
   def create
     params[:entry][:posted_at] = Time.now
-    params[:entry][:content_type] = params[:entry][:attachment_file].content_type
-    params[:entry][:attachment_file] = params[:entry][:attachment_file].read
-    
     @entry = Entry.new(entry_params)
     if @entry.save
       redirect_to @entry, notice: "作成しました。"
@@ -34,8 +31,6 @@ class EntriesController < ApplicationController
   end
 
   def update
-    params[:entry][:content_type] = params[:entry][:attachment_file].content_type
-    params[:entry][:attachment_file] = params[:entry][:attachment_file].read
     @entry = Entry.find(params[:id])
     @entry.assign_attributes(entry_params)
     if @entry.save
