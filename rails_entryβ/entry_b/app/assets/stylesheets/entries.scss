@@ -13,8 +13,30 @@
   background-color: lightgray;
 }
 
-.entry-text {
+.entry-title {
+  height: 10%;
+  font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.entry-body {
+  height: 25%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.detail-item {
+  margin: 0 1px;
+  border: 1px solid #fff;
+  height: 700px;
+  width: 700px;
+  background-color: lightgray;
+}
+.image-item {
+  text-align: center;
+}
+.operation-item {
+  text-align: center;
 }

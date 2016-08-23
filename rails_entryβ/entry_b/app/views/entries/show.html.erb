@@ -1,8 +1,16 @@
 <%= link_to "一覧へ戻る", :entries %>
-<ul>
-<li><%= @entry.id %></li>
-<li><%= @entry.title %></li>
-<li><%= @entry.body %></li>
-<li><%= @entry.posted_at %></li>
-<li><%= entry_image_tag @entry, width:96 %></li>
-</ul>
+<div class="detail-item">
+  <p class="entry-title">
+    <%= @entry.title %>
+  </p><hr/>
+  <p class="entry-body">
+    <%= @entry.body %>
+  </p><hr/>
+  <div class="image-item">
+    <%= entry_image_tag @entry, width:350 %>
+  </div>
+  <div class="operation-item">
+    <%= link_to "編集", [:edit, @entry] %>
+    <%= link_to "削除", @entry, method: :delete, data:{ confirm: "本当に削除しますか？" } %>
+  </div>
+</div>
