@@ -48,6 +48,10 @@ class EntriesController < ApplicationController
   private
   def entry_params
     attr = [:title, :body, :posted_at, :attachment_file, :content_type]
+    if params[:entry][:attachment_file].present?
+      params[:entry][:content_type] = params[:entry][:attachment_file].content_type
+      params[:entry][:attachment_file] = params[:entry][:attachment_file].read
+    end
     params.require(:entry).permit(attr)
   end
 
