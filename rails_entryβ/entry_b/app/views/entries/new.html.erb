@@ -1,13 +1,8 @@
 <h2>新規作成画面</h2>
 
 <div class="detail-item">
-<%= form_for @entry, :html => {:class => "entry-form"} do |f| %>
-  <%= f.label :name, "タイトル" %>
-  <%= f.text_field :title, :size => "50", :maxlength => "50", :placeholder => "title" %>
-  <%= f.label :name, "本文"%>
-  <%= f.text_area :body, :size => "100x20", :maxlength => "200" %>
-  <%= f.label :name, "ファイル"%>
-  <%= f.file_field :attachment_file %>
-  <%= f.submit "create" %>
+<%= form_for @entry, :html => {:class => "entry-form"} do |form| %>
+  <%= render "form", form: form %>
+  <%= form.submit "create" %>
 <% end %>
 </div>

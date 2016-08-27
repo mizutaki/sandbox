@@ -1,18 +1,8 @@
 <h2>編集画面</h2>
-<ul>
-<%= form_for @entry do |f| %>
-  <li>
-    <%= f.label :name, "タイトル" %>
-    <%= f.text_field :title %>
-  </li>
-  <li>
-    <%= f.label :name, "本文" %>
-    <%= f.text_area :body %>
-  </li>
-  <li>
-    <%= f.label :name, "画像" %>
-    <%= f.file_field :attachment_file %>
-    <%= entry_image_tag @entry, width: 60 %>
-  </li>
-  <li><%= f.submit "edit" %></li>
+
+<div class="detail-item">
+<%= form_for @entry, :html => {:class => "entry-form"} do |form| %>
+  <%= render "form", form: form %>
+  <%= form.submit "edit" %>
 <% end %>
+</div>
