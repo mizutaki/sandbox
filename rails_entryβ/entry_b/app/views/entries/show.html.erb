@@ -4,7 +4,7 @@
     <%= @entry.title %>
   </p><hr/>
   <p class="entry-body">
-    <%= @entry.body %>
+    <%= simple_format @entry.body %>
   </p><hr/>
   <div class="image-item">
     <%= entry_image_tag @entry, width:350 %>
