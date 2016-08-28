@@ -1,18 +1,43 @@
+/* entry-index */
 .flex-container {
   display: flex;
   flex-flow: row;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .flex-item {
   flex: 0 0 200;
-  margin: 0 1px;
-  border: 1px solid #fff;
-  padding: 10px;
+  margin: 5px;
+  border: 1px solid #111;
+  padding: 5px;
   width: 200px;
-  background-color: lightgray;
+  background-color:rgba(0, 10, 0, 0.05);
 }
-/* entry */
+.first-row {
+  text-align: center;
+}
+.first-row a {
+  display: inline-block;
+  width: 50px;
+  margin: 5px auto 0;
+  padding: 5px;
+  border: 1px solid #111;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #111;
+  text-decoration: none;
+  cursor: pointer;
+}
+.second-row {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* entry-show */
 .entry-show {
   width: 70%;
   margin: 50px auto 0;

@@ -6,12 +6,17 @@
 <table>
   <% @entries.each do |entry| %>
   <div class="flex-item">
-    <p class="entry-text"><%= entry.title %></p>
-    <p class="entry-text"><%= entry.body %></p>
-    <%= entry_image_tag entry, width:120 %><br>
-    <%= link_to "詳細", entry %>
-    <%= link_to "編集", [:edit, entry] %>
-    <%= link_to "削除", entry, method: :delete, data:{ confirm: "本当に削除しますか？" } %>
+    <div class="first-row">
+      <%= link_to "詳細", entry %>
+      <%= link_to "編集", [:edit, entry] %>
+      <%= link_to "削除", entry, method: :delete, data:{ confirm: "本当に削除しますか？" } %>
+    </div>
+    <hr>
+    <div class="second-row">
+      <%= entry.title %><hr>
+      <%= simple_format entry.body %><hr>
+      <%= entry_image_tag entry, width:120 %>
+    </div>
   </div>
   <% end %>
   </table>
