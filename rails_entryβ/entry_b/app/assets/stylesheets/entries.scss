@@ -12,26 +12,29 @@
   width: 200px;
   background-color: lightgray;
 }
-
-.entry-title {
-  height: 10%;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* entry */
+.entry-show {
+  width: 70%;
+  margin: 50px auto 0;
 }
-.entry-body {
-  height: 25%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.image-item {
+.entry-image {
   text-align: center;
 }
-.operation-item {
+.entry-button {
   text-align: center;
+}
+.entry-button a {
+  display: inline-block;
+  width: 100px;
+  margin: 10px auto 0;
+  padding: 10px;
+  border: 1px solid #111;
+  text-align: center;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #111;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* entry-form */

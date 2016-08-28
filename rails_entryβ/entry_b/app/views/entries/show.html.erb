@@ -1,16 +1,17 @@
 <%= link_to "一覧へ戻る", :entries %>
+
 <div class="detail-item">
-  <p class="entry-title">
+  <div class="entry-show">
     <%= @entry.title %>
-  </p><hr/>
-  <p class="entry-body">
+    <hr>
     <%= simple_format @entry.body %>
-  </p><hr/>
-  <div class="image-item">
-    <%= entry_image_tag @entry, width:350 %>
-  </div>
-  <div class="operation-item">
-    <%= link_to "編集", [:edit, @entry] %>
-    <%= link_to "削除", @entry, method: :delete, data:{ confirm: "本当に削除しますか？" } %>
+    <hr/>
+    <div class="entry-image">
+      <%= entry_image_tag @entry, width:350 %>
+    </div>
+    <div class="entry-button">
+      <%= link_to "編集", [:edit, @entry] %>
+      <%= link_to "削除", @entry, method: :delete, data:{ confirm: "本当に削除しますか？" } %>
+    </div>
   </div>
 </div>
