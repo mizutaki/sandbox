@@ -1,0 +1,23 @@
+<%= link_to "Create", :new_entry %>
+
+<h2>一覧表示</h2>
+
+<div class="flex-container">
+<table>
+  <% @entries.each do |entry| %>
+  <div class="flex-item">
+    <div class="first-row">
+      <%= link_to "詳細", entry %>
+      <%= link_to "編集", [:edit, entry] %>
+      <%= link_to "削除", entry, method: :delete, data:{ confirm: "本当に削除しますか？" } %>
+    </div>
+    <hr>
+    <div class="second-row">
+      <%= entry.title %><hr>
+      <%= simple_format entry.body %><hr>
+      <%= entry_image_tag entry, width:120 %>
+    </div>
+  </div>
+  <% end %>
+  </table>
+</div>

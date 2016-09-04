@@ -1,0 +1,8 @@
+<h2>編集画面</h2>
+
+<div class="detail-item">
+<%= form_for @entry, :url => { :controller => :entries, :action => :update }, :html => {:class => "entry-form"} do |form| %>
+  <%= render "form", form: form %>
+  <%= form.submit "edit" %>
+<% end %>
+</div>

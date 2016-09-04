@@ -1,0 +1,17 @@
+<%= link_to "一覧へ戻る", :calendars %>
+
+<div class="detail-item">
+  <div class="entry-show">
+    <%= @entry.title %>
+    <hr>
+    <%= simple_format @entry.body %>
+    <hr/>
+    <div class="entry-image">
+      <%= entry_image_tag @entry, width:350 %>
+    </div>
+    <div class="entry-button">
+      <%= link_to "編集", [:edit_calendar_entry] %>
+      <%= link_to "削除", calendar_entry_path, method: :delete, data:{ confirm: "本当に削除しますか？" } %>
+    </div>
+  </div>
+</div>

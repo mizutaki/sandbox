@@ -1,0 +1,9 @@
+<%= form.label :name, "タイトル" %>
+<%= form.text_field :title, :size => "50", :maxlength => "50", :placeholder => "title" %>
+<%= form.label :name, "本文"%>
+<%= form.text_area :body, :size => "100x20", :maxlength => "200" %>
+<%= form.label :name, "ファイル"%>
+<%= form.file_field :attachment_file %>
+<% if :attachment_file %>
+  <%= entry_image_tag @entry, :width => "80" %>
+<% end %>
