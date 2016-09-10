@@ -1,6 +1,7 @@
 class EntriesController < ApplicationController
   def index
-    @entries = Entry.all
+    @day = params[:calendar_id]
+    @entries = Entry.where(calendar_id: @day)
   end
 
   def new

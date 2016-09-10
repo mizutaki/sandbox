@@ -1,4 +1,4 @@
-<%= link_to "Create", :new_entry %>
+<%= link_to "Create", new_calendar_entry_path(@day) %>
 
 <h2>一覧表示</h2>
 
@@ -7,9 +7,9 @@
   <% @entries.each do |entry| %>
   <div class="flex-item">
     <div class="first-row">
-      <%= link_to "詳細", entry %>
-      <%= link_to "編集", [:edit, entry] %>
-      <%= link_to "削除", entry, method: :delete, data:{ confirm: "本当に削除しますか？" } %>
+      <%= link_to "詳細", calendar_entry_path(@day, entry.id) %>
+      <%= link_to "編集", edit_calendar_entry_path(@day, entry.id) %>
+      <%= link_to "削除", calendar_entry_path(@day,entry.id), method: :delete, data:{ confirm: "本当に削除しますか？" } %>
     </div>
     <hr>
     <div class="second-row">
