@@ -11,10 +11,8 @@ class EntriesController < ApplicationController
   def create
     params[:entry][:posted_at] = Time.now
     params[:entry][:calendar_id] = params[:calendar_id]
-    p params[:entry][:calendar_id]
     @entry = Entry.create(entry_params)
-    @calendar = Calendar.create(entry_id: @entry.id, calendar_id: @entry.calendar_id)
-    if @entry.save and @calendar.save
+    if @entry.save
       redirect_to calendar_entry_path(@entry.calendar_id, @entry.id), notice: "作成しました。"
     else
 
@@ -45,8 +43,9 @@ class EntriesController < ApplicationController
   end
 
   def destroy
-    @entry = Entry.find(params[:id])
-    @entry.destroy
+    entry = Entry.find(params[:id])
+    entry.destroy
+    
     redirect_to :calendars, notice: "削除しました。"
   end
   private

@@ -1,4 +1,5 @@
 <%= month_calendar do |day| %>
-    <%= link_to  day, calendar_entries_path(day) %>
-    <%= link_to  'create', new_calendar_entry_path(day) %>
+    <% d = day.to_s.gsub('-', '')%>
+    <%= link_to  day, calendar_entries_path(d) %>
+    <%= link_to  'create', new_calendar_entry_path(d) %>
 <% end %>

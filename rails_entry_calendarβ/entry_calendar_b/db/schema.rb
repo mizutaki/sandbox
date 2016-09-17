@@ -13,22 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20160814070540) do
 
-  create_table "calendars", force: :cascade do |t|
-    t.integer  "entry_id"
-    t.string   "calendar_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "entries", force: :cascade do |t|
-    t.string   "title"
-    t.string   "calendar_id"
-    t.text     "body"
-    t.datetime "posted_at",       null: false
-    t.binary   "attachment_file"
-    t.string   "content_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "title",           limit: 255
+    t.text     "body",            limit: 65535
+    t.datetime "posted_at",                     null: false
+    t.binary   "attachment_file", limit: 65535
+    t.string   "content_type",    limit: 255
+    t.integer  "calendar_id",     limit: 4,     null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
 end
