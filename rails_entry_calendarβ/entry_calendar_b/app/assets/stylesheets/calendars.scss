@@ -6,9 +6,13 @@
     border: 1px solid;
   }
   .wday-0,.wday-1,.wday-2,.wday-3,.wday-4,.wday-5,.wday-6 {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border: 1px solid;
+    text-align: center;
+    a {
+      display: block;
+    }
   }
   .wday-1 {}
   .wday-2 {}
