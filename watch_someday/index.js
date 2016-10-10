@@ -11,11 +11,3 @@ mb.on('ready', function ready () {
 mb.on('after-create-window', function() {
   mb.window.openDevTools()
 })
-/*
-//外部プロセスの実行
-var spawn = require('child_process').spawn;
-var ls = spawn('ruby', ['scraping.rb']);
-ls.stdout.on('data', function(data) {
-  console.log('stdout:' + data);
-});
-*/
