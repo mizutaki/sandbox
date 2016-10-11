@@ -9,7 +9,7 @@
     });
     return conn;
   };
-  
+
   //DB処理
   var showEventHandler = function() {
     connection().connect();
@@ -41,10 +41,17 @@
     var spawn = require('child_process').spawn;
     var ls = spawn('ruby', ['scraping.rb']);
     ls.stdout.on('data', function(data) {
-      var sql = "SELECT * FROM testTable WHERE message = ?";
       var content = data.toString().split(':');
       var rentalStartDate = content[0];
       var title = content[1];
+      var insertSql = 'INSERT INTO test.rental VALUES(?)';
+      connection().connect();
+      connection().query(insertSql, [title], function(err, result) {
+        if (err) throw err;
+        if (result.affectedRows > 0) console.log('success insert!');
+      });
+      connection().end();
+      var sql = "SELECT * FROM testTable WHERE message = ?";
       var query = connection().query(sql, [title], function(err, rows, fileds) {
          if (err) throw err;
          if (rows.length > 0) {
