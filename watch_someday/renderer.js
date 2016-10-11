@@ -42,11 +42,17 @@
     var ls = spawn('ruby', ['scraping.rb']);
     ls.stdout.on('data', function(data) {
       var sql = "SELECT * FROM testTable WHERE message = ?";
-      var d = data.toString().split(':')[1];
-      var query = connection().query(sql, [d], function(err, rows, fileds) {
+      var content = data.toString().split(':');
+      var rentalStartDate = content[0];
+      var title = content[1];
+      var query = connection().query(sql, [title], function(err, rows, fileds) {
          if (err) throw err;
          if (rows.length > 0) {
-           console.log(rows[0].message);
+           var options = {
+             body: rentalStartDate + '\n' + title,
+             icon: ''
+           }
+           var notification = new Notification("レンタル開始通知", options);
          } else {
            console.log('no');
          }
