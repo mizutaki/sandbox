@@ -44,9 +44,9 @@
       var content = data.toString().split(':');
       var rentalStartDate = content[0];
       var title = content[1];
-      var insertSql = 'INSERT INTO test.rental VALUES(?)';
+      var insertSql = 'INSERT INTO test.rental VALUES(?, ?)';
       connection().connect();
-      connection().query(insertSql, [title], function(err, result) {
+      connection().query(insertSql, [title, rentalStartDate], function(err, result) {
         if (err) throw err;
         if (result.affectedRows > 0) console.log('success insert!');
       });
