@@ -1,11 +1,15 @@
 (function() {
   var mysql = require('mysql');
+  var DB_NAME = 'watch_someday';
+  var WS_CONTENT_TABLE = 'ws_content';
+  var RENTAL_TABLE = 'rental';
+
   var connection = function() {
     var conn = mysql.createConnection({
       host:'localhost',
       user:'root',
       password:'root',
-      database:'test'
+      database: DB_NAME
     });
     return conn;
   };
@@ -13,26 +17,31 @@
   //DB処理
   var showEventHandler = function() {
     connection().connect();
-    connection().query('SELECT * FROM testTable;', function(err, rows, fileds) {
+    var query = connection().query('SELECT * FROM '+ WS_CONTENT_TABLE, function(err, rows, fileds) {
       if (err) throw err;
       if (rows.length > 0) {
-        console.log(rows[0].message);
+        var length = rows.length;
+        for (var i = 0; i < length; i++) {
+          console.log(rows[i].title);
+        }
       } else {
         console.log('no');
       }
     });
     connection().end();
+    console.log(query.sql)
   };
   
   var addEventHandler = function() {
     var text = document.querySelector('#text').value;
-    var sql = 'INSERT INTO test.testTable VALUES(?)';
+    var sql = 'INSERT INTO ' + WS_CONTENT_TABLE + ' VALUES(?)';
     connection().connect();
-    connection().query(sql, [text], function(err, result) {
+    var query = connection().query(sql, [text], function(err, result) {
       if (err) throw err;
       if (result.affectedRows > 0) console.log('success insert!');
     });
     connection().end();
+    console.log(query.sql);
   };
 
   var confirmationEventHandler = function() {
@@ -44,14 +53,14 @@
       var content = data.toString().split(':');
       var rentalStartDate = content[0];
       var title = content[1];
-      var insertSql = 'INSERT INTO test.rental VALUES(?, ?)';
+      var insertSql = 'INSERT INTO ' + RENTAL_TABLE + ' VALUES(?, ?)';
       connection().connect();
       connection().query(insertSql, [title, rentalStartDate], function(err, result) {
         if (err) throw err;
         if (result.affectedRows > 0) console.log('success insert!');
       });
       connection().end();
-      var sql = "SELECT * FROM testTable WHERE message = ?";
+      var sql = 'SELECT * FROM ' + WS_CONTENT_TABLE + ' WHERE title = ?';
       var query = connection().query(sql, [title], function(err, rows, fileds) {
          if (err) throw err;
          if (rows.length > 0) {
