@@ -12,18 +12,18 @@ drama_movie = 'http://www.tsutaya.co.jp/dynamic_rss.php?rssId=80&s=1&lj=28&u=0_0
 action_movie_ja = 'http://www.tsutaya.co.jp/dynamic_rss.php?rssId=80&s=1&lj=35&u=0_011|1_35|5_002|6_0000&ic=002&it=0000&i=011'
 drama_movie_ja = 'http://www.tsutaya.co.jp/dynamic_rss.php?rssId=80&s=1&lj=38&u=0_011|1_38|5_002|6_0000&ic=002&it=0000&i=011'
 
-body = open(movie).read
-
-doc = Oga.parse_html(body)
-
-title = doc.xpath('//item/title').map { |m| m.children.text}
-description = doc.xpath('//item/description').map { |m| m.children.text}
-
-ary = [title, description].transpose
-contents = Hash[*ary.flatten]
-pattern = /\d{4}年\d{1,2}月\d{1,2}日/
-contents.each do |title, value|
-  rental_start_date = value.match(pattern)[0]
-  print "#{rental_start_date}:#{title}"
-  sleep(0.5)
+content_url = [movie, action_movie, sf_movie, action_movie_ja, drama_movie_ja]
+content_url.each do |url|
+  body = open(url).read
+  doc = Oga.parse_html(body)
+  title = doc.xpath('//item/title').map { |m| m.children.text}
+  description = doc.xpath('//item/description').map { |m| m.children.text}
+  ary = [title, description].transpose
+  contents = Hash[*ary.flatten]
+  pattern = /\d{4}年\d{1,2}月\d{1,2}日/
+  contents.each do |title, value|
+    rental_start_date = value.match(pattern)[0]
+    print "#{rental_start_date}:#{title}"
+    sleep(0.5)
+  end
 end
