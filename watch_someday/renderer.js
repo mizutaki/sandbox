@@ -53,11 +53,19 @@
       var content = data.toString().split(':');
       var rentalStartDate = content[0];
       var title = content[1];
-      var insertSql = 'INSERT INTO ' + RENTAL_TABLE + ' VALUES(?, ?)';
       connection().connect();
-      connection().query(insertSql, [title, rentalStartDate], function(err, result) {
-        if (err) throw err;
-        if (result.affectedRows > 0) console.log('success insert!');
+      var existSql = 'SELECT * FROM ' + RENTAL_TABLE + ' WHERE title = ?';
+      connection().query(existSql, [title], function(err, rows, fileds) {
+        if (rows.length == 0) {
+          console.log('存在しない ' + title);
+          var insertSql = 'INSERT INTO ' + RENTAL_TABLE + ' VALUES(?, ?)';
+          connection().query(insertSql, [title, rentalStartDate], function(err, result) {
+            if (err) throw err;
+            if (result.affectedRows > 0) console.log('success insert!');
+          });
+        } else {
+          console.log('既に存在する ' + title);
+        }
       });
       connection().end();
       var sql = 'SELECT * FROM ' + WS_CONTENT_TABLE + ' WHERE title = ?';
