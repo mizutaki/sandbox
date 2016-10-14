@@ -1,0 +1,14 @@
+ body{
+         font-family: Meiryo UI;
+         padding: 10px;
+         background: skyblue;
+      }
+      p{
+         color: #fff;
+         font-size: 20px;
+         margin: 0px;
+         padding: 0px;
+      }
+ul {
+  list-style-type: none;
+}

@@ -16,16 +16,25 @@
 
   //DB処理
   var showEventHandler = function() {
+    var showArea = document.querySelector('#showArea');
+    showArea.innerHTML = '';
     connection().connect();
     var query = connection().query('SELECT * FROM '+ WS_CONTENT_TABLE, function(err, rows, fileds) {
       if (err) throw err;
+      var ul = document.createElement('ul');
       if (rows.length > 0) {
         var length = rows.length;
         for (var i = 0; i < length; i++) {
-          console.log(rows[i].title);
+          var li = document.createElement('li');
+          li.innerText = rows[i].title;
+          ul.appendChild(li);
         }
+        showArea.appendChild(ul);
       } else {
-        console.log('no');
+        var li = document.createElement('li');
+        li.innerText = 'content not found.';
+        ul.appendChild(li);
+        showArea.appendChild(ul);
       }
     });
     connection().end();
