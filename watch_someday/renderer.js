@@ -33,15 +33,16 @@
   };
   
   var addEventHandler = function() {
-    var text = document.querySelector('#text').value;
+    var text = document.querySelector('#text');
     var sql = 'INSERT INTO ' + WS_CONTENT_TABLE + ' VALUES(?)';
     connection().connect();
-    var query = connection().query(sql, [text], function(err, result) {
+    var query = connection().query(sql, [text.value], function(err, result) {
       if (err) throw err;
       if (result.affectedRows > 0) console.log('success insert!');
     });
     connection().end();
     console.log(query.sql);
+    text.value = '';
   };
 
   var confirmationEventHandler = function() {
