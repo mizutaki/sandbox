@@ -27,6 +27,23 @@
         for (var i = 0; i < length; i++) {
           var li = document.createElement('li');
           li.innerText = rows[i].title;
+          var button = document.createElement('input');
+          button.type = 'button';
+          button.value = 'delete';
+          button.onclick = function() {//削除イベント定義
+            var e = (window.event)? window.event : arguments.callee.caller.arguments[0];
+            var self = e.target || e.srcElement;
+            var deleteTarget = self.parentNode;
+            //DB削除
+            var query = connection().query('DELETE FROM ' + WS_CONTENT_TABLE + ' WHERE title=\'' + deleteTarget.innerText+ '\'', function(err) {
+              if (err) throw err;
+            });
+            console.log(query.sql);
+            //UI削除
+            var deleteparent = deleteTarget.parentNode;
+            deleteparent.removeChild(deleteTarget);
+          }
+          li.appendChild(button);
           ul.appendChild(li);
         }
         showArea.appendChild(ul);
