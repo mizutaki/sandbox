@@ -14,8 +14,9 @@
     return conn;
   };
 
-  //DB処理
-  var showEventHandler = function() {
+  //初期処理
+  //var showEventHandler = function() {
+  (function() {
     var showArea = document.querySelector('#showArea');
     showArea.innerHTML = '';
     connection().connect();
@@ -56,7 +57,7 @@
     });
     connection().end();
     console.log(query.sql)
-  };
+  })();
   
   var addEventHandler = function() {
     var text = document.querySelector('#text');
@@ -111,8 +112,7 @@
       console.log(query.sql)
     });
   };
-
-  document.querySelector('#showButton').addEventListener('click', showEventHandler);
+  
   document.querySelector('#addButton').addEventListener('click', addEventHandler);
   document.querySelector('#confirmationButton').addEventListener('click', confirmationEventHandler);
 }());
