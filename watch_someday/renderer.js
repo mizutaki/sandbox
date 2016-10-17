@@ -76,7 +76,7 @@
     connection().connect();
     //外部プロセスの実行
     var spawn = require('child_process').spawn;
-    var ls = spawn('ruby', ['scraping.rb']);
+    var ls = spawn('ruby', ['rental_shop_visit.rb']);
     ls.stdout.on('data', function(data) {
       var content = data.toString().split(':');
       var rentalStartDate = content[0];
@@ -112,7 +112,7 @@
       console.log(query.sql)
     });
   };
-  
+
   document.querySelector('#addButton').addEventListener('click', addEventHandler);
   document.querySelector('#confirmationButton').addEventListener('click', confirmationEventHandler);
 }());
