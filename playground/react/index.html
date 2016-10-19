@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -16,9 +15,9 @@
     <script type="text/babel">
       var WatchSomedayAPP = React.createClass({
         getInitialState: function() {
-        	return {
-        		contents: []
-        	}
+          return {
+            contents: []
+          }
         },
 
         onAdd: function(newContent) {
@@ -28,25 +27,25 @@
         },
 
         render: function() {
-        	return (
-        		<div className="watchSomedayApp">
-        		  <ContentCreator onAdd={this.onAdd}/>
-        		</div>
-        	);
+          return (
+            <div className="watchSomedayApp">
+              <ContentCreator onAdd={this.onAdd}/>
+            </div>
+          );
         }
       });
 
       var ContentCreator = React.createClass({
         getInitialState: function() {
-        	return {
-        		value: ""
-        	}
+          return {
+            value: ""
+          }
         },
 
         _onAdd: function() {
-        	var newContent = this.refs.inputText.getDOMNode().value;
-        	this.props.onAdd(newContent);
-        	this.setState({value: ""});
+          var newContent = this.refs.inputText.getDOMNode().value;
+          this.props.onAdd(newContent);
+          this.setState({value: ""});
         },
 
        render: function(){
@@ -65,4 +64,4 @@
       );
     </script>
   </body>
-</html
+</html>
