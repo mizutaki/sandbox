@@ -30,6 +30,7 @@
           return (
             <div className="watchSomedayApp">
               <ContentCreator onAdd={this.onAdd}/>
+              <ContentList contents={this.state.contents} />
             </div>
           );
         }
@@ -43,17 +44,48 @@
         },
 
         _onAdd: function() {
-          var newContent = this.refs.inputText.getDOMNode().value;
+          var newContent = this._input.value;
+          console.log(newContent);//debug
           this.props.onAdd(newContent);
           this.setState({value: ""});
+        },
+        _onChange: function(e) {
+          this.setState({
+            value: e.target.valu
+          });
         },
 
        render: function(){
           return (
             <div className="ContentCreator">
-              <input type="text" value={this.state.value} ref="inputText" placeholder="Input your new Content" />
+              <input type="text" value={this.state.value} ref={(a) => this._input = a} placeholder="Input your new Content" onChange={this._onChange} />
               <button onClick={this._onAdd}>Add</button>
             </div>
+          );
+        }
+      });
+
+      var ContentList = React.createClass({
+        _onDelete: function() {
+          //doSomething
+        },
+        render: function() {
+          return (
+            <ul>
+              {
+                this.props.contents.map(function(content, i) {
+                  if (content.status == 0) {
+                    return (
+                     <li key={i}>
+                        {content.item}<input type="button" value="delete" onClick={this._onDelete.bind(this,i)}/>
+                      </li>
+                    )
+                  } else {
+                    return <li key={i}><s>{content.item}</s></li>
+                  }
+                },this)
+              }
+            </ul>
           );
         }
       });
