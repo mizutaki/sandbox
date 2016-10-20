@@ -22,15 +22,21 @@
 
         onAdd: function(newContent) {
           this.setState({
-            contents : this.state.contents.concat({item:newContent, status:0})
+            contents : this.state.contents.concat({item:newContent, deleteContent:0})
           });
+        },
+
+        onDelete: function(i) {
+          var targetContent = this.state.contents[i];
+          targetContent.deleteContent = 1;
+          this.setState({contents: this.state.contents});
         },
 
         render: function() {
           return (
             <div className="watchSomedayApp">
               <ContentCreator onAdd={this.onAdd}/>
-              <ContentList contents={this.state.contents} />
+              <ContentList contents={this.state.contents} onDelete={this.onDelete} />
             </div>
           );
         }
@@ -46,6 +52,7 @@
         _onAdd: function() {
           var newContent = this._input.value;
           console.log(newContent);//debug
+          console.log(this.props);
           this.props.onAdd(newContent);
           this.setState({value: ""});
         },
@@ -59,29 +66,27 @@
           return (
             <div className="ContentCreator">
               <input type="text" value={this.state.value} ref={(a) => this._input = a} placeholder="Input your new Content" onChange={this._onChange} />
-              <button onClick={this._onAdd}>Add</button>
+              <button onClick={this._onAdd}>Add Content</button>
             </div>
           );
         }
       });
 
       var ContentList = React.createClass({
-        _onDelete: function() {
-          //doSomething
+        _onDelete: function(i) {
+          this.props.onDelete(i);
         },
         render: function() {
           return (
             <ul>
               {
                 this.props.contents.map(function(content, i) {
-                  if (content.status == 0) {
+                  if (content.deleteContent == 0) {
                     return (
                      <li key={i}>
-                        {content.item}<input type="button" value="delete" onClick={this._onDelete.bind(this,i)}/>
+                        {content.item}<input type="button" value="delete" onClick={this._onDelete.bind(this,i )}/>
                       </li>
                     )
-                  } else {
-                    return <li key={i}><s>{content.item}</s></li>
                   }
                 },this)
               }
