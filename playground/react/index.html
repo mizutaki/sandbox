@@ -13,10 +13,16 @@
     <div id="myApp"></div>
 
     <script type="text/babel">
+      var initialData =
+      [
+        {item: 'test1', deleteContent: 0},
+        {item: 'test2', deleteContent: 1},
+        {item: 'test3', deleteContent: 0}
+      ]
       var WatchSomedayAPP = React.createClass({
         getInitialState: function() {
           return {
-            contents: []
+            contents: initialData
           }
         },
 
