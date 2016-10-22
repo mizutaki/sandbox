@@ -15,7 +15,7 @@ class Gear
   def wheel
     @wheel ||= Wheel.new(rim, tire)
   end 
-  
+
   def ratio
     chainring / cog.to_f
   end
@@ -33,4 +33,4 @@ class Wheel
   end
 end
 
-p Gear.new(52, 11, Wheel.new(26, 1.5)).gear_inches
+p Gear.new(52, 11, 26, 1.5).gear_inches
