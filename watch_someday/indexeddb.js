@@ -4,7 +4,7 @@ var IndexedDB = {
     console.log('init');
     //var ab = indexedDB.deleteDatabase("watch_someday");
     var req = window.indexedDB.open('watch_someday', 104);
-
+    var aa = 'aaa';
     req.onupgradeneeded = function(ev) {
       var db = ev.target.result;
       ev.target.transaction.onerror = function(err) { console.log(err); };
@@ -32,16 +32,15 @@ var IndexedDB = {
     tx.oncomplete = function() { console.log('success add.'); };
     tx.onerror = function() { console.log('error add.'); };
   },
-/*
-  del: function() {
-    console.log('remove');
+
+  delete: function(text) {
+    console.log('delete');
     var db = _db;
     var tx = db.transaction(['content'], 'readwrite');
     var store = tx.objectStore('content');
-    var requrest = store.delete(deleteContent);
+    var requrest = store.delete(text);
     tx.onsuccess = function() { console.log('success delete.'); };
     tx.onerror = function() { console.log('error add.'); };
   }
-*/
 };
 module.exports = IndexedDB;

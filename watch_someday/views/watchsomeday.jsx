@@ -30,7 +30,7 @@ var WatchSomeday = React.createClass({
     targetContent.deleteContent = 1;
     this.setState({contents: this.state.contents});
     console.log(targetContent.item)
-    indexedDB.del();
+    IndexedDB.delete(targetContent.item);
   },
   render: function() {
     return (
