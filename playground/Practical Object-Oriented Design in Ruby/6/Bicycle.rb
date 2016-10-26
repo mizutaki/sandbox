@@ -10,6 +10,10 @@ class Bicycle
   def default_chain
     '10-speed'
   end
+
+  def default_tire_size
+    raise NotImplementedError, "This #{self.class} cannot respond to:"
+  end
 end
 
 class RoadBike < Bicycle
@@ -55,6 +59,12 @@ class MountainBike < Bicycle
   end
 end
 
+class RecumbentBike < Bicycle
+  def default_chain
+    '9-speed'
+  end
+end
+
 road_bike = RoadBike.new(
         size:        'M',
         type_color: 'red')
@@ -71,3 +81,5 @@ mountain_bike = MountainBike.new(
 p mountain_bike.size
 p mountain_bike.tire_size
 p mountain_bike.chain
+
+bent = RecumbentBike.new
