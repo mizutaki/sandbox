@@ -5,6 +5,21 @@ class Bicycle
     @size = args[:size]
     @chain = args[:chain] || default_chain
     @tire_size = args[:tire_size] || default_tire_size
+
+    post_initialize(args)
+  end
+
+  def post_initialize(args)
+    nil
+  end
+
+  def spares
+    { tire_size: tire_size,
+      chain: chain}.merge(local_spares)
+  end
+
+  def local_spares
+    {}
   end
 
   def default_chain
@@ -19,21 +34,12 @@ end
 class RoadBike < Bicycle
   attr_reader :tap_color
 
-  def initialize(args)
+  def post_initialize(args)
     @tap_color = args[:tap_color]
-    super(args)
   end
 
-  def spares
-    if style == :road
-      { chain:     '10-speed',
-        tire_size: '23',
-        tap_color: tap_color}
-    else
-      { chain:     '10-speed',
-        tire_size: '2.1',
-        rear_shock: rear_shock}
-    end
+  def local_spares
+    { tap_color: tap_color }
   end
 
   def default_tire_size
@@ -44,14 +50,13 @@ end
 class MountainBike < Bicycle
   attr_reader :front_shock, :rear_shock
 
-  def initialize(args)
+  def post_initialize(args)
     @front_shock = args[:front_shock]
     @rear_shock = args[:rear_shock]
-    super(args)
   end
 
-  def spares
-    super.merge(rear_shock: rear_shock)
+  def local_spares
+    {rear_shock: rear_shock}
   end
 
   def default_tire_size
@@ -60,8 +65,22 @@ class MountainBike < Bicycle
 end
 
 class RecumbentBike < Bicycle
+  attr_reader :flag
+
+  def post_initialize(args)
+    @flag = args[:flag]
+  end
+
+  def local_spares
+    { flag: flag }
+  end
+
   def default_chain
     '9-speed'
+  end
+
+  def default_tire_size
+    '28'
   end
 end
 
@@ -82,4 +101,6 @@ p mountain_bike.size
 p mountain_bike.tire_size
 p mountain_bike.chain
 
-bent = RecumbentBike.new
+bent = RecumbentBike.new(
+  flag: 'tall and orange')
+p bent.spares
