@@ -1,0 +1,30 @@
+{
+  "name": "watch_later",
+  "version": "1.0.0",
+  "description": "electron menu bar app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mizutaki/watch_later.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mizutaki/watch_later/issues"
+  },
+  "homepage": "https://github.com/mizutaki/watch_later#readme",
+  "dependencies": {
+    "browserify": "^13.1.0",
+    "electron": "^1.4.3",
+    "gulp": "^3.9.1",
+    "menubar": "^5.1.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
