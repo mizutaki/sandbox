@@ -55,3 +55,34 @@ mountain_bike = Bicycle.new(
   parts: Parts.new([chain, mountain_tire, front_shock, rear_shock]))
 p mountain_bike.size
 p mountain_bike.spares
+
+require 'ostruct'
+module PartsFactory
+  def self.build(config,
+                 parts_class = Parts)
+    parts_class.new(
+      config.collect {|part_config|
+        create_part(part_config)})
+  end
+  
+  def self.create_part(part_config)
+    OpenStruct.new(
+      name: part_config[0],
+      description: part_config[1],
+      needs_spare: part_config.fetch(2, true))
+  end
+end
+
+road_config =
+[['chain', '10-speed'],
+ ['tire_size', '23'],
+ ['tape_color', 'red']]
+
+mountain_config =
+[['chain', '10-speed'],
+ ['tire_size', '2.1'],
+ ['front_shock', 'Manitou', false],
+ ['rear_shock', 'FOX']]
+
+p road_parts = PartsFactory.build(road_config)
+p mountain_parts = PartsFactory.build(mountain_config)
