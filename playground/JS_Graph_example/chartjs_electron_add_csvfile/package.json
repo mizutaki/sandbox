@@ -1,0 +1,24 @@
+{
+  "name": "chartjs_graph",
+  "version": "1.0.0",
+  "description": "electron menu bar app",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "electron": "^1.4.3",
+    "menubar": "^5.1.0"
+  }
+}
