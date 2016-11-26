@@ -35,6 +35,18 @@ function drawGrapthArray(csvArray) {
   const ctx = document.getElementById("containerChartJS").getContext("2d");
   const myNewChart = new Chart(ctx, {
     type: "line",
-    data: dispayData
+    data: dispayData,
+    options: {
+      scales: {
+        yAxes: [{
+          display: true,
+          ticks: {
+            callback: function(value){
+              return value+'MB';
+            }
+          }
+        }]
+      }
+    }
   });
 }
