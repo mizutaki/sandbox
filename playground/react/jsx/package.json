@@ -1,0 +1,22 @@
+{
+  "name": "jsx1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-react": "^6.16.0",
+    "jsx-loader": "^0.13.2",
+    "webpack": "^1.14.0"
+  },
+  "scripts": {
+    "watch": "webpack --watch --progress"
+  },
+  "author": "",
+  "license": "ISC"
+}
