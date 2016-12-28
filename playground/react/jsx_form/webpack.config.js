@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './src/app_spread_custom_component2.jsx',
+  entry: './src/app_table.jsx',
   output: {
     path: './dist',
     filename: 'bundle.js'
