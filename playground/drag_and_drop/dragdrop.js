@@ -1,13 +1,27 @@
 (function() {
     let ls = localStorage;
-
-
     //要素内のクリックされた位置を取得するグローバル（のような）変数
     let x;
     let y;
 
     function initialize() {
         console.log("initialize");
+        let counter = ls.getItem("elementCounter");
+        if (counter === null) {
+            ls.setItem("elementCounter", 0);
+        }
+        Object.keys(ls).forEach(function(key) {
+            if (key === "elementCounter") return;
+            let item = ls.getItem(key);
+            console.log(item);
+            let data = JSON.parse(item);
+            createElement(key, data.top, data.left);
+        });
+        addMouseEvent();
+    }
+    initialize();
+
+    function addMouseEvent() {
         //要素の取得
         let elements = document.getElementsByClassName("drag-and-drop");
 
@@ -16,15 +30,7 @@
             elements[i].addEventListener("mousedown", mouseDown, false);
             //elements[i].addEventListener("touchstart", mouseDown, false);
         }
-        Object.keys(ls).forEach(function(key) {
-          let item = ls.getItem(key);
-          console.log(item);
-          let data = JSON.parse(item);
-          createElement(data.top, data.left);
-        });
     }
-    initialize();
-    //mouseDown→mouseMove→mouseUp
 
     //マウスが押された際の関数
     function mouseDown(e) {
@@ -90,30 +96,37 @@
         //クラス名 .drag も消す
         drag.classList.remove("drag");
         let item = {
-          "test": "test",
-          "top": drag.style.top,
-          "left": drag.style.left
+            "elementId": e.target.id,
+            "test": "test",
+            "top": drag.style.top,
+            "left": drag.style.left
         }
-        console.log(drag);
-        console.log(drag.style.top);
-        console.log(drag.style.left);
-        ls.setItem(new Date(),JSON.stringify(item));
+        ls.setItem(item.elementId, JSON.stringify(item));
         //console.log(ls.getItem("name"));
     }
 
     var button = document.querySelector("#createButton");
     button.addEventListener("click", function(e) {
         console.log('button');
-        createElement("10px","10px");
-        initialize();
+        ls.setItem("elementCounter", Number.parseInt(ls.getItem("elementCounter")) + 1);
+        let item = {
+            "elementId": ls.getItem("elementCounter"),
+            "text": "text",
+            "top": "10px",
+            "left": "10px"
+        }
+        ls.setItem(ls.getItem("elementCounter"), JSON.stringify(item));
+        createElement(ls.getItem("elementCounter"), "10px", "10px");
+        addMouseEvent();
     });
 
-    function createElement(top, left) {
-      let div = document.createElement("div");
-      div.className = 'drag-and-drop';
-      div.style.top = top;
-      div.style.left = left;
-      document.body.appendChild(div);
+    function createElement(id, top, left) {
+        let div = document.createElement("div");
+        div.setAttribute("id", id);
+        div.className = 'drag-and-drop';
+        div.style.top = top;
+        div.style.left = left;
+        document.body.appendChild(div);
     }
 
 })()
