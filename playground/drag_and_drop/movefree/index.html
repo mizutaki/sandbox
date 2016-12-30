@@ -1,0 +1,50 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Drop base!</title>
+    <style>
+        .container {
+          display: flex;
+          width: 100%;
+          height: 100%;
+        }
+        #area1 {
+          flex: 1;
+            background-color: #134566;
+        }
+
+        #area2 {
+            flex: 1;
+            background-color: yellow;
+        }
+
+        #area3 {
+          flex: 1;
+            background-color: blue;
+        }
+
+        .drag-and-drop {
+            cursor: move;
+            position: absolute;
+            z-index: 1000;
+            background: gray;
+            height: 100px;
+            width: 100px;
+        }
+
+        .drag {
+            z-index: 1001;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <input id="createButton" type="button" value="作成" />
+    <div class="container">
+      <div id="area1"></div>
+      <div id="area2"></div>
+      <div id="area3"></div>
+    </div>
+        <script src="./dragdrop.js"></script>
+</body>
+</html>
