@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <!--<meta charset="UTF-8">-->
+    <title>Drop base!</title>
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .container > div {
+            flex: 1;
+            height: 100%
+        }
+
+        .over {
+            border: 2px dashed #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="area1">
+            <textarea id="text1" draggable="true">aaaa</textarea>
+        </div>
+        <div id="area2">
+            <textarea id="text2" draggable="true">bbbb</textarea>
+        </div>
+        <div id="area3">
+            <textarea id="text3" draggable="true">ccc</textarea>
+        </div>
+    </div>
+
+    <script src="./dragdrop.js"></script>
+</body>
+
+</html>
