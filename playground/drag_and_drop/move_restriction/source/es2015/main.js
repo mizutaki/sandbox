@@ -29,6 +29,7 @@ function addDragEvent() {
           let textarea = document.createElement("textarea");
           textarea.id = obj.id;
           textarea.value = obj.value;
+          textarea.setAttribute("draggable", "true");
           let parent = obj.parentNode;
           let parentNode = document.getElementById(parent);
           parentNode.appendChild(textarea);
