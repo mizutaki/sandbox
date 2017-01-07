@@ -1,9 +1,9 @@
 module.exports = {
   context: __dirname + '/source',
   entry: {
-    'main': './es2015/main',
+    //'main': './es2015/main',
     //'dragdrop': './es2015/dragdrop',
-    //'button': './es2015/button',
+    'button': './es2015/button',
   },
   output: {
     path: __dirname + '/distribution/javascript',
