@@ -48,6 +48,7 @@ class DragDrop {
         let targetElementJSON = e.dataTransfer.getData("text");
         let targetObject = JSON.parse(targetElementJSON);
         let moveElement = document.getElementById(targetObject.elementId);
+        if (e.target.id === moveElement.parentNode.id) return;//同じ場所にドロップされたら何もしない
         let item = {
             "id": moveElement.id,
             "parentNode": e.target.id,
