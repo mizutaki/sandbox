@@ -48,7 +48,10 @@ class DragDrop {
         let targetElementJSON = e.dataTransfer.getData("text");
         let targetObject = JSON.parse(targetElementJSON);
         let moveElement = document.getElementById(targetObject.elementId);
-        if (e.target.id === moveElement.parentNode.id) return;//同じ場所にドロップされたら何もしない
+        if (e.target.id === moveElement.parentNode.id) {
+          moveElement.style.opacity = '1.0';
+          return;//同じ場所にドロップされたら何もしない
+        }
         let item = {
             "id": moveElement.id,
             "parentNode": e.target.id,
@@ -66,6 +69,7 @@ class DragDrop {
         console.log(arr);
         arr.push(item);
         ls.setItem(e.target.id, JSON.stringify(arr));
+        moveElement.style.opacity = '1.0';
         e.target.appendChild(moveElement);
         let childElementList = JSON.parse(ls.getItem(targetObject.parentElementId));
         childElementList = childElementList.filter(function(v) {
