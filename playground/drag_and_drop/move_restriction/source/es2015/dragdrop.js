@@ -40,7 +40,6 @@ class DragDrop {
     }
 
     drop(e) {
-        console.log(e);
         let ls = localStorage;
         if (e.stopPropagation) {
             e.stopPropagation();
@@ -48,7 +47,8 @@ class DragDrop {
         let targetElementJSON = e.dataTransfer.getData("text");
         let targetObject = JSON.parse(targetElementJSON);
         let moveElement = document.getElementById(targetObject.elementId);
-        if (e.target.id === moveElement.parentNode.id) {
+        if (e.target.id === moveElement.parentNode.id ||
+            e.target.nodeName === "TEXTAREA") {
           moveElement.style.opacity = '1.0';
           return;//同じ場所にドロップされたら何もしない
         }
@@ -57,16 +57,12 @@ class DragDrop {
             "parentNode": e.target.id,
             "value": moveElement.value
         }
-        console.log(item);
         let arr = [];
         let children = ls.getItem(e.target.id);
-        console.log(children);
         if (children !== null) {
             let c = JSON.parse(children);
             arr = c;
-            console.log(arr);
         }
-        console.log(arr);
         arr.push(item);
         ls.setItem(e.target.id, JSON.stringify(arr));
         moveElement.style.opacity = '1.0';
