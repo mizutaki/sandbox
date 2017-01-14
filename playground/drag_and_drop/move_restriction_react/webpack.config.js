@@ -1,8 +1,12 @@
 module.exports = {
-  entry: './src/app.jsx',
+  entry: {
+    'react/bundle': './src/app.jsx',
+    'js/dragdrop': './src/dragdrop',
+    'js/main': './src/main'
+  },
   output: {
     path: './dist',
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   devtool: 'inline-source-map',
   module: {
