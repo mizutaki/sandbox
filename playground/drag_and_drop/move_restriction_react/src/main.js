@@ -16,7 +16,7 @@ function addDragEvent() {
         col.addEventListener('dragend', dragDrop.dragEnd, false);
     });
 }
-
+/*
 (function() {
     let ls = localStorage;
     Object.keys(ls).forEach(function(key) {
@@ -91,3 +91,4 @@ function addDragEvent() {
         });
     });
 })();
+*/

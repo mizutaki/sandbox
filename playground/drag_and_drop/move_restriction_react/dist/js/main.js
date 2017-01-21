@@ -69,62 +69,62 @@
 	        col.addEventListener('dragend', dragDrop.dragEnd, false);
 	    });
 	}
-
-	(function () {
-	    var ls = localStorage;
-	    Object.keys(ls).forEach(function (key) {
+	/*
+	(function() {
+	    let ls = localStorage;
+	    Object.keys(ls).forEach(function(key) {
 	        if ("elementCounter" === key) return;
-	        var item = ls.getItem(key);
+	        let item = ls.getItem(key);
 	        console.log(item);
-	        var data = JSON.parse(item);
+	        let data = JSON.parse(item);
 	        console.log(data);
-	        data.forEach(function (obj) {
-	            var textarea = document.createElement("textarea");
+	        data.forEach(function(obj) {
+	            let textarea = document.createElement("textarea");
 	            textarea.id = obj.id;
 	            textarea.value = obj.value;
 	            textarea.setAttribute("draggable", "true");
 	            textarea.setAttribute("rows", "3");
-	            var parent = obj.parentNode;
-	            var parentNode = document.getElementById(parent);
+	            let parent = obj.parentNode;
+	            let parentNode = document.getElementById(parent);
 	            parentNode.appendChild(textarea);
 	            addDragEvent();
 	        });
 	        console.log(data);
 	    });
-	    var dragDrop = new _dragdrop2.default();
-	    var buttons = document.querySelectorAll(".button");
-	    buttons.forEach(function (button) {
-	        button.addEventListener('click', function () {
+	    let dragDrop = new DragDrop();
+	    let buttons = document.querySelectorAll(".button");
+	    buttons.forEach(function(button) {
+	        button.addEventListener('click', function() {
 	            var ls = localStorage;
-	            var counter = ls.getItem("elementCounter");
+	            let counter = ls.getItem("elementCounter");
 	            if (counter === null) {
 	                ls.setItem("elementCounter", 0);
 	            }
 	            ls.setItem("elementCounter", Number.parseInt(ls.getItem("elementCounter")) + 1);
-	            var arr = [];
-	            var children = ls.getItem(button.parentNode.id);
+	            let arr = [];
+	            let children = ls.getItem(button.parentNode.id);
 	            if (children !== null) {
-	                var c = JSON.parse(children);
+	                let c = JSON.parse(children);
 	                arr = c;
 	            }
-	            var item = {
+	            let item = {
 	                "id": ls.getItem("elementCounter"),
 	                "parentNode": button.parentNode.id,
 	                "value": ""
-	            };
+	            }
 	            arr.push(item);
 	            ls.setItem(item.parentNode, JSON.stringify(arr));
-	            var textarea = document.createElement("textarea");
+	            let textarea = document.createElement("textarea");
 	            textarea.id = item.id;
 	            textarea.setAttribute("draggable", "true");
 	            textarea.setAttribute("rows", "3");
 	            textarea.className = "flex-item";
-	            textarea.addEventListener("change", function (e) {
-	                var parentElementId = e.target.parentElement.id;
-	                var targetElementId = e.target.id;
-	                var targetElementValue = e.target.value;
-	                var childElementList = JSON.parse(ls.getItem(parentElementId));
-	                childElementList = childElementList.filter(function (v) {
+	            textarea.addEventListener("change", function(e) {
+	                let parentElementId = e.target.parentElement.id;
+	                let targetElementId = e.target.id;
+	                let targetElementValue = e.target.value;
+	                let childElementList = JSON.parse(ls.getItem(parentElementId));
+	                childElementList = childElementList.filter(function(v) {
 	                    if (v.id == targetElementId) {
 	                        v.value = targetElementValue;
 	                    }
@@ -132,10 +132,10 @@
 	                });
 	                ls.setItem(parentElementId, JSON.stringify(childElementList));
 	            });
-	            var parentNode = button.parentNode;
+	            let parentNode = button.parentNode;
 	            parentNode.appendChild(textarea);
-	            var cols = document.querySelectorAll('textarea');
-	            cols.forEach(function (col) {
+	            let cols = document.querySelectorAll('textarea');
+	            cols.forEach(function(col) {
 	                col.addEventListener('dragstart', dragDrop.dragStart, false);
 	                col.addEventListener('dragenter', dragDrop.dragEnter, false);
 	                col.addEventListener('dragleave', dragDrop.dragLeave, false);
@@ -144,6 +144,7 @@
 	        });
 	    });
 	})();
+	*/
 
 /***/ },
 /* 1 */
