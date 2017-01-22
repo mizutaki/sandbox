@@ -85,14 +85,46 @@
 	console.log(area3);
 	var DivContainer = React.createClass({
 	  displayName: 'DivContainer',
+	  getInitialState: function getInitialState() {
+	    console.log(area1);
+	    return {
+	      area1: area1,
+	      area2: area2,
+	      area3: area3
+	    };
+	  },
+	  onCreateTextArea: function onCreateTextArea(buttonId) {
+	    var counter = ls.getItem("elementCounter");
+	    if (counter === null) {
+	      ls.setItem("elementCounter", 0);
+	    }
+	    ls.setItem("elementCounter", Number.parseInt(ls.getItem("elementCounter")) + 1);
+	    console.log(buttonId);
+	    this._changeState(buttonId);
+	  },
+	  _changeState: function _changeState(buttonId) {
+	    if (buttonId === "area1Button") {
+	      this.setState({
+	        area1: this.state.area1.concat({ id: ls.getItem("elementCounter"), parentId: "area1", value: "追加" })
+	      });
+	    } else if (buttonId === "area2Button") {
+	      this.setState({
+	        area2: this.state.area2.concat({ id: ls.getItem("elementCounter"), parentId: "area2", value: "追加" })
+	      });
+	    } else if (buttonId === "area3Button") {
+	      this.setState({
+	        area3: this.state.area3.concat({ id: ls.getItem("elementCounter"), parentId: "area3", value: "追加" })
+	      });
+	    }
+	  },
 
 	  render: function render() {
 	    return React.createElement(
 	      'div',
 	      { className: 'container' },
-	      React.createElement(DivDropArea, { divId: 'area1', buttonId: 'area1Button1', childElementList: area1 }),
-	      React.createElement(DivDropArea, { divId: 'area2', buttonId: 'area1Button2', childElementList: area2 }),
-	      React.createElement(DivDropArea, { divId: 'area3', buttonId: 'area1Button3', childElementList: area3 })
+	      React.createElement(DivDropArea, { divId: 'area1', buttonId: 'area1Button', childElementList: this.state.area1, onCreateTextArea: this.onCreateTextArea }),
+	      React.createElement(DivDropArea, { divId: 'area2', buttonId: 'area2Button', childElementList: this.state.area2, onCreateTextArea: this.onCreateTextArea }),
+	      React.createElement(DivDropArea, { divId: 'area3', buttonId: 'area3Button', childElementList: this.state.area3, onCreateTextArea: this.onCreateTextArea })
 	    );
 	  }
 	});
@@ -106,7 +138,7 @@
 	    return React.createElement(
 	      'div',
 	      { id: this.props.divId },
-	      React.createElement(CreateButton, { buttonId: this.props.buttonId }),
+	      React.createElement(CreateButton, { buttonId: this.props.buttonId, onCreateTextArea: this.props.onCreateTextArea }),
 	      textarea
 	    );
 	  }
@@ -119,14 +151,12 @@
 	      area: area1
 	    };
 	  },
-	  onCreateTextArea: function onCreateTextArea(e) {
-	    this.setState({
-	      area1: this.state.area.concat({ id: 111, parentId: "area1", value: "追加" })
-	    });
+	  _onCreateTextArea: function _onCreateTextArea(e) {
+	    this.props.onCreateTextArea(this.props.buttonId);
 	  },
 
 	  render: function render() {
-	    return React.createElement('input', { id: this.props.buttonId, className: 'button', type: 'button', value: '\u4F5C\u6210', onClick: this.onCreateTextArea });
+	    return React.createElement('input', { id: this.props.buttonId, className: 'button', type: 'button', value: '\u4F5C\u6210', onClick: this._onCreateTextArea });
 	  }
 	});
 
@@ -142,7 +172,7 @@
 	  },
 
 	  render: function render() {
-	    return React.createElement('textarea', { id: this.props.id, value: this.state.value, onChange: this.onChangeText });
+	    return React.createElement('textarea', { id: this.props.id, value: this.state.value, draggable: 'true', onChange: this.onChangeText });
 	  }
 	});
 	/*

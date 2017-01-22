@@ -38,15 +38,48 @@ console.log(area1);
 console.log(area2);
 console.log(area3);
 var DivContainer = React.createClass({
-    render: function() {
-        return (
-            <div className="container">
-                <DivDropArea divId="area1" buttonId="area1Button1" childElementList={area1}/>
-                <DivDropArea divId="area2" buttonId="area1Button2" childElementList={area2}/>
-                <DivDropArea divId="area3" buttonId="area1Button3" childElementList={area3}/>
-            </div>
-        );
+    getInitialState() {
+      console.log(area1);
+      return {
+        area1: area1,
+        area2: area2,
+        area3: area3
+      }
     }
+    ,
+    onCreateTextArea(buttonId) {
+      let counter = ls.getItem("elementCounter");
+      if (counter === null) {
+          ls.setItem("elementCounter", 0);
+      }
+      ls.setItem("elementCounter", Number.parseInt(ls.getItem("elementCounter")) + 1);
+      console.log(buttonId);
+      this._changeState(buttonId);
+    },
+    _changeState(buttonId) {
+      if (buttonId === "area1Button") {
+        this.setState({
+          area1: this.state.area1.concat({id:ls.getItem("elementCounter"), parentId:"area1", value:"追加"}),
+        });
+      } else if (buttonId === "area2Button") {
+        this.setState({
+          area2: this.state.area2.concat({id:ls.getItem("elementCounter"), parentId:"area2", value:"追加"})
+        });
+      } else if (buttonId === "area3Button") {
+        this.setState({
+          area3: this.state.area3.concat({id:ls.getItem("elementCounter"), parentId:"area3", value:"追加"})
+        });
+      }
+    },
+    render: function() {
+      return (
+          <div className="container">
+              <DivDropArea divId="area1" buttonId="area1Button" childElementList={this.state.area1} onCreateTextArea={this.onCreateTextArea}/>
+              <DivDropArea divId="area2" buttonId="area2Button" childElementList={this.state.area2} onCreateTextArea={this.onCreateTextArea}/>
+              <DivDropArea divId="area3" buttonId="area3Button" childElementList={this.state.area3} onCreateTextArea={this.onCreateTextArea}/>
+          </div>
+      );
+  }
 });
 var DivDropArea = React.createClass({
   render: function() {
@@ -55,7 +88,7 @@ var DivDropArea = React.createClass({
     });
     return(
       <div id={this.props.divId}>
-        <CreateButton buttonId={this.props.buttonId}/>
+        <CreateButton buttonId={this.props.buttonId} onCreateTextArea={this.props.onCreateTextArea}/>
         {textarea}
       </div>
     );
@@ -68,14 +101,12 @@ var CreateButton = React.createClass({
       area: area1
     };
   },
-  onCreateTextArea(e) {
-    this.setState({
-      area1: this.state.area.concat({id:111, parentId:"area1", value:"追加"})
-    });
+  _onCreateTextArea(e) {
+    this.props.onCreateTextArea(this.props.buttonId);
   },
   render: function() {
     return(
-      <input id={this.props.buttonId} className="button" type="button" value="作成" onClick={this.onCreateTextArea}/>
+      <input id={this.props.buttonId} className="button" type="button" value="作成" onClick={this._onCreateTextArea}/>
     )
   }
 });
@@ -91,7 +122,7 @@ var TextArea = React.createClass({
   },
   render: function() {
     return(
-      <textarea id={this.props.id} value={this.state.value} onChange={this.onChangeText}/>
+      <textarea id={this.props.id} value={this.state.value} draggable="true" onChange={this.onChangeText}/>
     )
   }
 });
